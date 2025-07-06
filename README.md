@@ -8,7 +8,6 @@ Projeto para extração, visualização e análise de dados financeiros.
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Recharts](https://recharts.org/)
 - [PostCSS](https://postcss.org/)
 
 ## ⚙️ Como rodar o projeto
