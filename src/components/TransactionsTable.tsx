@@ -1,4 +1,5 @@
 import { ExtractRecord } from "@/types";
+import clsx from "clsx";
 import {
   Table,
   TableBody,
@@ -24,16 +25,28 @@ export const TransactionsTable = ({ data }: TransactionsTableProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, index) => (
-          <TableRow key={`${item?.["Lançamento"]}-${index}`}>
-            <TableCell>{item?.["Data"]} </TableCell>
-            <TableCell className="text-center">
-              {item?.["Lançamento"]}{" "}
-            </TableCell>
-            <TableCell>{item?.["Categoria"]}</TableCell>
-            <TableCell className="text-right">{item?.["Valor"]}</TableCell>
-          </TableRow>
-        ))}
+        {data.map((item, index) => {
+          const isPayment =
+            item?.["Lançamento"]?.includes("PAGAMENTO") ||
+            item?.["Lançamento"]?.includes("AMORTIZACAO") ||
+            item?.["Lançamento"]?.includes("PGTO");
+
+          return (
+            <TableRow key={`${item?.["Lançamento"]}-${index}`}>
+              <TableCell>{item?.["Data"]} </TableCell>
+              <TableCell className="text-center">
+                {item?.["Lançamento"]}{" "}
+              </TableCell>
+              <TableCell>{item?.["Categoria"]}</TableCell>
+              <TableCell
+                className={clsx("text-right", isPayment && "text-green-500")}
+              >
+                {isPayment && "+"}
+                {item?.["Valor"]}
+              </TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

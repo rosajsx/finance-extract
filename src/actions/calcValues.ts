@@ -18,7 +18,8 @@ export async function calcValues(data: ExtractRecord[]) {
     (acc, record) => {
       if (
         record["Lançamento"].includes("PAGAMENTO") ||
-        record["Lançamento"].includes("AMORTIZAÇÃO")
+        record["Lançamento"].includes("AMORTIZACAO") ||
+        record["Lançamento"].includes("PGTO")
       ) {
         console.log("a");
         return acc;
