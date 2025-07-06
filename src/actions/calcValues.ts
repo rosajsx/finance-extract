@@ -19,7 +19,7 @@ export async function calcValues(data: ExtractRecord[]) {
       if (
         record["Lançamento"].includes("PAGAMENTO") ||
         record["Lançamento"].includes("AMORTIZACAO") ||
-        record["Lançamento"].includes("PGTO")
+        record["Lançamento"].includes("PAGTO DEBITO AUTOMATICO")
       ) {
         console.log("a");
         return acc;

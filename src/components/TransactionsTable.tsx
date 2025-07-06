@@ -29,7 +29,7 @@ export const TransactionsTable = ({ data }: TransactionsTableProps) => {
           const isPayment =
             item?.["Lançamento"]?.includes("PAGAMENTO") ||
             item?.["Lançamento"]?.includes("AMORTIZACAO") ||
-            item?.["Lançamento"]?.includes("PGTO");
+            item?.["Lançamento"]?.includes("PAGTO DEBITO AUTOMATICO");
 
           return (
             <TableRow key={`${item?.["Lançamento"]}-${index}`}>
