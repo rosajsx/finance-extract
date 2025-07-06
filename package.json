@@ -2,6 +2,10 @@
   "name": "finance-extract",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Lucas Rosa",
+    "email": "lucassantosrosa51@gmail.com"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
