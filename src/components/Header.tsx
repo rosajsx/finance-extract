@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
 import clsx from "clsx";
-import { ArrowLeft, Copy, Sheet } from "lucide-react";
+import { ArrowLeft, CircuitBoard, Copy, Sheet } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import {
@@ -28,6 +28,10 @@ interface HeaderProps {
   onCopyExcelFormula: () => void;
   onFilter: (filter: string) => void;
   onSubmitFilterSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  onGenerateRelatory?: () => void;
+  onViewRelatory?: () => void;
+  hasRelatory?: boolean;
+  isRelatoryLoading?: boolean;
   data?: CalcValues;
   filterkey: string;
 }
@@ -41,6 +45,10 @@ export const Header = ({
   filterkey,
   onFilter,
   onSubmitFilterSearch,
+  onGenerateRelatory,
+  hasRelatory,
+  isRelatoryLoading,
+  onViewRelatory,
 }: HeaderProps) => {
   return (
     <header className="flex flex-col gap-4  w-full ">
@@ -54,43 +62,59 @@ export const Header = ({
             >
               <ArrowLeft /> Voltar
             </Button>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="cursor-pointer self-start">
-                  <Sheet /> Gerar formula Excel
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Formula Excel</DialogTitle>
-                </DialogHeader>
-                <DialogDescription className="flex flex-col gap-2">
-                  <span className="rounded-md border flex items-center p-4 gap-2">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          className="cursor-pointer"
-                          onClick={onCopyExcelFormula}
-                        >
-                          <Copy />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>Copiar fórmula do Excel</TooltipContent>
-                    </Tooltip>
-                    <span className="w-sm py-3  whitespace-nowrap overflow-auto ">
-                      <span> =({excelFormula})</span>
-                    </span>
-                  </span>
+
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                className="cursor-pointer self-start"
+                disabled={isRelatoryLoading}
+                onClick={hasRelatory ? onViewRelatory : onGenerateRelatory}
+              >
+                <CircuitBoard /> {isRelatoryLoading && "Gerando..."}
+                {!isRelatoryLoading && hasRelatory && "Ver relatório"}
+                {!isRelatoryLoading && !hasRelatory && "Gerar relatório AI"}
+              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
                   <Button
-                    className="cursor-pointer"
-                    onClick={onCopyExcelFormula}
+                    variant="outline"
+                    className="cursor-pointer self-start"
                   >
-                    Copiar formula
+                    <Sheet /> Gerar formula Excel
                   </Button>
-                </DialogDescription>
-              </DialogContent>
-            </Dialog>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Formula Excel</DialogTitle>
+                  </DialogHeader>
+                  <DialogDescription className="flex flex-col gap-2">
+                    <span className="rounded-md border flex items-center p-4 gap-2">
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            className="cursor-pointer"
+                            onClick={onCopyExcelFormula}
+                          >
+                            <Copy />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Copiar fórmula do Excel</TooltipContent>
+                      </Tooltip>
+                      <span className="w-sm py-3  whitespace-nowrap overflow-auto ">
+                        <span> =({excelFormula})</span>
+                      </span>
+                    </span>
+                    <Button
+                      className="cursor-pointer"
+                      onClick={onCopyExcelFormula}
+                    >
+                      Copiar formula
+                    </Button>
+                  </DialogDescription>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-4">
